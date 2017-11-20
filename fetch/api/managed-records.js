@@ -57,6 +57,7 @@ const retrieve = (options = {}) => {
   const offset = options.page ? options.page * 10 - 10 : 0;
 
   records.previousPage = previousPage(page);
+
   nextPageData({ page: page + 1 })
     .then(data => (records.nextPage = data))
     .catch(err => console.log(err));
@@ -71,4 +72,5 @@ const retrieve = (options = {}) => {
     })
     .catch(err => console.log(err));
 };
+
 export default retrieve;
