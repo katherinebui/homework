@@ -22,3 +22,18 @@ function validateForm() {
     return true;
   }
 }
+
+function addPeople() {
+  if (validateForm()) {
+    var age = [document.querySelector('[name=age]').value, ',', ' '].join('');
+    var relationship = [document.querySelector('[name=rel]').value, ',', ' '].join('');
+    var smoker = [document.querySelector('[name=smoker]').checked].join('');
+    var li = document.createElement('li');
+    li.append(age);
+    li.append(relationship);
+    li.append(smoker);
+    document.querySelector('form').reset();
+    var householdList = document.querySelector('.household');
+    householdList.append(li);
+  }
+}
