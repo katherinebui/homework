@@ -4,6 +4,10 @@ window.addEventListener('load', function() {
     e.preventDefault();
     addPeople();
   });
+
+  var header = document.createElement('h3');
+  var h1 = document.querySelector('h1');
+  h1.insertAdjacentHTML('afterend', '<h3>Age, Relationship, Smoker?</h3>');
 });
 
 function validateForm() {
