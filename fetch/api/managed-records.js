@@ -29,9 +29,7 @@ const dataAggregator = response => {
   return Promise.resolve(records);
 };
 
-const previousPage = page => {
-  return page === 1 ? null : page - 1;
-};
+const previousPage = page => (page === 1 ? null : page - 1);
 
 const nextPageData = (options = {}) => {
   const offset = options.page ? options.page * 10 - 10 : 0;
@@ -60,9 +58,7 @@ const retrieve = (options = {}) => {
 
   records.previousPage = previousPage(page);
   nextPageData({ page: page + 1 })
-    .then(data => {
-      return (records.nextPage = data);
-    })
+    .then(data => (records.nextPage = data))
     .catch(err => console.log(err));
 
   const url = URI(window.path)
