@@ -64,3 +64,20 @@ function removeItem() {
   var lastListItem = container.lastChild;
   lastListItem.remove();
 }
+
+function serializeHousehold() {
+  var data = {};
+  var result = {};
+  var list = document.querySelectorAll('li');
+  for (var i = 0; i < list.length; i++) {
+    data[i] = list[i].innerHTML.split(',');
+    result[i] = {
+      age: data[i][0],
+      relationship: data[i][1],
+      smoker: data[i][2]
+    };
+  }
+  var preTag = document.querySelector('pre');
+  var json = JSON.stringify(result);
+  preTag.innerHTML = json;
+}
