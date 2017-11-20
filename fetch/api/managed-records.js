@@ -9,6 +9,10 @@ let records;
 
 const dataAggregator = response => {
   const primary = ['red', 'blue', 'yellow'];
+  if (response.length < 1) {
+    records.nextPage = null;
+    return Promise.resolve(records);
+  }
   response.forEach(record => {
     records.ids.push(record.id);
     if (record.disposition === 'open') {
@@ -29,6 +33,18 @@ const previousPage = page => {
   return page === 1 ? null : page - 1;
 };
 
+const nextPageData = (options = {}) => {
+  const offset = options.page ? options.page * 10 - 10 : 0;
+  const url = URI(window.path)
+    .addSearch('limit', 10)
+    .addSearch('offset', offset);
+  return fetch(url)
+    .then(resp => {
+      return Promise.resolve(resp.json()).then(data => (data.length === 0 ? null : options.page));
+    })
+    .catch(err => console.log(err));
+};
+
 const retrieve = (options = {}) => {
   records = {
     ids: [],
@@ -37,19 +53,22 @@ const retrieve = (options = {}) => {
     previousPage: null,
     nextPage: 1
   };
-  if (!options.colors) {
-    options.colors = [];
-  }
-  records.previousPage = previousPage(page);
-  records.nextPage = page + 1;
-  if (options.page === 50) {
-    records.nextPage = null;
-  }
+
+  let page = options.page || 1;
+  let colors = options.colors || [];
   const offset = options.page ? options.page * 10 - 10 : 0;
+
+  records.previousPage = previousPage(page);
+  nextPageData({ page: page + 1 })
+    .then(data => {
+      return (records.nextPage = data);
+    })
+    .catch(err => console.log(err));
+
   const url = URI(window.path)
     .addSearch('limit', 10)
     .addSearch('offset', offset)
-    .addSearch('color[]', options.colors);
+    .addSearch('color[]', colors);
   return fetch(url)
     .then(resp => {
       return Promise.resolve(resp.json()).then(data => dataAggregator(data));
