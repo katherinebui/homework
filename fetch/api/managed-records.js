@@ -34,12 +34,8 @@ const dataAggregator = response => {
 };
 
 const retrieve = (options = {}) => {
-  if (!options.colors) {
-    options.colors = [];
-  }
-  if (!options.page) {
-    options.page = null;
-  }
+  let colors = options.colors || [];
+  let page = options.page || 1;
   const url = URI(window.path);
   // .addSearch('limit', 10)
   // .addSearch('offset', records.ids.length)
