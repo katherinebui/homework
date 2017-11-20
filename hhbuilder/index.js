@@ -19,6 +19,12 @@ window.addEventListener('load', function() {
     e.preventDefault();
     removeItem();
   });
+
+  var submitButton = document.querySelector('[type=submit]');
+  submitButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    serializeHousehold();
+  });
 });
 
 function validateForm() {
@@ -51,4 +57,10 @@ function addPeople() {
     var householdList = document.querySelector('.household');
     householdList.append(li);
   }
+}
+
+function removeItem() {
+  var container = document.getElementsByTagName('ol')[0];
+  var lastListItem = container.lastChild;
+  lastListItem.remove();
 }
