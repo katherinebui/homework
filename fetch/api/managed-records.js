@@ -5,17 +5,8 @@ import URI from 'urijs';
 window.path = 'http://localhost:3000/records';
 
 // Your retrieve function plus any additional functions go here ...
-const records = {
-  ids: [],
-  open: [],
-  closedPrimaryCount: 0,
-  previousPage: null,
-  nextPage: 1
-};
-
-const primary = ['red', 'blue', 'yellow'];
-
 const dataAggregator = response => {
+  const primary = ['red', 'blue', 'yellow'];
   response.forEach(record => {
     records.ids.push(record.id);
     if (record.disposition === 'open') {
@@ -34,9 +25,18 @@ const dataAggregator = response => {
 };
 
 const retrieve = (options = {}) => {
+  const records = {
+    ids: [],
+    open: [],
+    closedPrimaryCount: 0,
+    previousPage: null,
+    nextPage: 1
+  };
   let colors = options.colors || [];
   let page = options.page || 1;
   const url = URI(window.path);
+  records.previousPage = page === 1 ? null : page - 1;
+  // records.nextPage = page === 1 ? null : page - 1;
   // .addSearch('limit', 10)
   // .addSearch('offset', records.ids.length)
   // .addSearch('color[]', options.colors);
