@@ -1,0 +1,14 @@
+I have completed fetch and hhbuilder.
+
+To run hhbuilder:
+  - Please go into the hhbuilder folder and open index.html in your browser
+  - To see validations, leave the age or relationship fields empty
+  - After clicking the submit button, open your Developer Tools on Chrome and view the information located between the <pre> tags to see the household list in JSON
+  - To view code visit: https://github.com/katherinebui/homework/blob/master/hhbuilder/index.js
+
+To run fetch:
+  - Please make sure yarn is installed. If it is not installed, please visit: https://yarnpkg.com/lang/en/docs/install/
+  - When yarn is installed, please run the command "yarn install" to install all dependencies
+  - To see successful passing of tests, please run the command "yarn test"
+  - To view code visit: https://github.com/katherinebui/homework/blob/master/fetch/api/managed-records.js
+
