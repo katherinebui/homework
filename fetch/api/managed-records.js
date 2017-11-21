@@ -52,9 +52,9 @@ const retrieve = (options = {}) => {
     nextPage: 1
   };
 
-  let page = options.page || 1;
-  let colors = options.colors || [];
-  const offset = options.page ? options.page * 10 - 10 : 0;
+  const page = options.page || 1;
+  const colors = options.colors || [];
+  const offset = options.page * 10 - 10;
 
   records.previousPage = previousPage(page);
 
